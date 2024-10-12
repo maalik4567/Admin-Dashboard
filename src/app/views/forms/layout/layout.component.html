@@ -1,0 +1,62 @@
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Add Student</strong> 
+      </c-card-header>
+      <c-card-body>
+        
+        
+        <!-- <app-docs-example href="forms/layout#gutters"> -->
+          <form cForm class="row g-3" id="studentForm" (ngSubmit)="onSubmit()">
+            <c-col md="6">
+              <label cLabel for="Name">Name</label>
+              <input cFormControl type="text" [(ngModel)]="student.Name" id="Name" name="Name" placeholder="Enter Student Name"
+              required />
+              <p *ngIf="!nameValid" class="text-danger">Student Name is Required</p>
+            </c-col>
+            <c-col md="6">
+              <label cLabel for="availableCourses">Select Course(Multiple)</label>
+              <select cFormControl cSelect id="availableCourses" (change)="addCourse($any($event.target).value)">
+                <option>Select Course</option>
+                <option *ngFor="let course of availableCourses" [ngValue]="course.Value">{{course.Text}}</option>
+              </select>
+              <p *ngIf="!coursesValid" class="text-danger">At least one course must be selected.</p>
+            </c-col>
+            
+            <c-col xs="12">
+              <label cLabel for="inputAddress2">Selected Courses</label>
+              <div id="selectedCourses">
+                <span *ngFor="let courseValue of selectedCourses">
+                  {{courseValue}}
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeCourse(courseValue)">
+                    <i>x</i>
+                  </button>
+                </span>
+              </div>
+            </c-col>
+            <c-col md="6">
+              <label cLabel for="ContactNumber">Contact Number</label>
+              <input cFormControl type="text" [(ngModel)]="student.ContactNumber" id="ContactNumber" name="ContactNumber" placeholder="Enter Contact Number"
+              required />
+              <p *ngIf="!contactValid" class="text-danger">Contact Number is Required</p>
+            </c-col>
+            <c-col md="6">
+              <label cLabel for="Class">Class</label>
+              <select cSelect cFormControl [(ngModel)]="student.Class" id="Class" name="Class">
+                <option>Select Class</option>
+                <option *ngFor="let classVal of availableClasses" [ngValue]="classVal.Value">{{classVal.Text}}</option>
+              </select>
+              <p *ngIf="!classValid" class="text-danger">Class is required.</p>
+            </c-col>
+          
+            <c-col xs="12">
+              <button cButton type="submit">Add Student</button>
+            </c-col>
+          </form>
+        <!-- </app-docs-example> -->
+      </c-card-body>
+    </c-card>
+  </c-col>
+  
+</c-row>
